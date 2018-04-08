@@ -2,6 +2,7 @@ import babel from 'rollup-plugin-babel'
 import commonjs from 'rollup-plugin-commonjs'
 import filesize from 'rollup-plugin-filesize'
 import livereload from 'rollup-plugin-livereload'
+import postcss from 'rollup-plugin-postcss'
 import progress from 'rollup-plugin-progress'
 import resolve from 'rollup-plugin-node-resolve'
 import serve from 'rollup-plugin-serve'
@@ -17,6 +18,10 @@ export default {
   },
   plugins: [
     progress(),
+    postcss({
+      extract: 'dist/styles/bundle.css',
+      config: { ctx: { production: production } }
+    }),
     resolve({ browser: true, jsnext: true, main: true }),
     commonjs(),
     babel({ exclude: 'node_modules/**' }),
